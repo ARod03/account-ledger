@@ -191,17 +191,31 @@ public class Main {
             System.out.println("\n==== Month to Date ====");
 
             for(int i = ledger.size() - 1; i >= 0; i--) {
+                Transaction t = ledger.get(i);
 
+                int tMonth = t.getDate().getMonthValue();
+                int tYear = t.getDate().getYear();
+
+                if (tMonth == currentDate.getMonthValue() && tYear == currentDate.getYear()) {
+                    printTransaction(t);
+                }
             }
         }
 
         //Create a method to show the previous month
         private static void reportPreviousMonth() {
             LocalDate currentDate = LocalDate.now();
-            LocalDate previousDate = now.minusMonths(1);
+            LocalDate previousDate = currentDate.minusMonths(1);
 
             for(int i = ledger.size() - 1; i >= 0; i--) {
+                Transaction t = ledger.get(i);
 
+                int tMonth = t.getDate().getMonthValue();
+                int tYear = t.getDate().getYear();
+
+                if (tMonth == currentDate.getMonthValue() && tYear == previousDate.getYear()) {
+                    printTransaction(t);
+                }
             }
         }
 
@@ -212,7 +226,11 @@ public class Main {
             System.out.println("\n==== Year to Date ====");
 
             for(int i = ledger.size() - 1; i >= 0; i--) {
+                Transaction t = ledger.get(i);
 
+                if(t.getDate().getYear() == currentYear) {
+                    printTransaction(t);
+                }
             }
         }
 
@@ -223,20 +241,31 @@ public class Main {
             System.out.println("\n==== Previous Year ====");
 
             for(int i = ledger.size() - 1; i >= 0; i--) {
+                Transaction t = ledger.get(i);
 
+                if(t.getDate().getYear() == previousYear) {
+                    printTransaction(t);
+                }
             }
         }
 
         //Create a method to be able to search by the vendor
-        System.out.print("Enter vendor name: ");
-        String searchVendor = theScanner.nextLine().toLowerCase();
+        private static void searchVendor() {
+            System.out.print("Enter vendor name: ");
+            String searchVendor = theScanner.nextLine().toLowerCase();
 
-        System.out.println("\n==== Search Results ====");
+            System.out.println("\n==== Search Results ====");
 
-        for(int i = ledger.size() - 1; i >= 0; i--) {
+            for (int i = ledger.size() - 1; i >= 0; i--) {
+                Transaction t = ledger.get(i);
 
+                String vendor = t.getVendor().toLowerCase();
+
+                if (vendor.contains(searchVendor)) {
+                    printTransaction(t);
+                }
+            }
         }
-
 
 
         //Add a goodbye for when the user is done using the program :)
