@@ -203,6 +203,16 @@ public class Main {
             }
         }
 
+        //Create a method to be able to search by the vendor
+        System.out.print("Enter vendor name: ");
+        String searchVendor = theScanner.nextLine().toLowerCase();
+
+        System.out.println("\n==== Search Results ====");
+
+        for(int i = showLedger.size() - 1; i >= 0; i--) {
+
+        }
+
 
 
         //Add a goodbye for when the user is done using the program :)
