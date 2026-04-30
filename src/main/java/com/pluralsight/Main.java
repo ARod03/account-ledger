@@ -1,5 +1,7 @@
 package com.pluralsight;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Scanner;
 
 public class Main {
@@ -20,8 +22,51 @@ public class Main {
             System.out.println("X) Quit");
             System.out.println("----------");
 
+            String mainMenuChoice = theScanner.nextLine().toUpperCase().trim();
+
+            //Make a switch statement to branch out the different options based on the user's choice
+            switch (mainMenuChoice) {
+                case "D":
+                    addTransaction();
+                    break;
+                case "P":
+                    addTransaction();
+                    break;
+                case "L":
+                    showLedger();
+                    break;
+                case "X":
+                    appRunning = false;
+                    break;
+                default:
+                    System.out.println("Invalid option!");
+
+            }
 
         }
+
+        //Add a method in order to display deposits and making payments
+        private static void addTransactions(boolean isDeposit) {
+            System.out.println("Description: ");
+            String description = theScanner.nextLine();
+
+            System.out.println("Vendor: ");
+            String vendor = theScanner.nextLine();
+
+            System.out.println("Amount: ");
+            double amount = Double.parseDouble(theScanner.nextLine());
+
+            if (!isDeposit) amount = -Math.abs(amount);
+
+            LocalDate date = LocalDate.now();
+            LocalTime time = LocalTime.now();
+
+
+        }
+
+        //Add a goodbye for when the user is done using the program
+        System.out.println("Thank you for using our application!");
+        System.out.println("Goodbye!");
 
 
 
