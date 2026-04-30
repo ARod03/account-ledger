@@ -1,5 +1,8 @@
 package com.pluralsight;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -7,47 +10,52 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static Scanner theScanner = new Scanner(System.in);
-    public static ArrayList<Transaction> ledger = new ArrayList<>();
+    private static Scanner theScanner = new Scanner(System.in);
+    private static ArrayList<Transaction> ledger = new ArrayList<>();
 
     public static void main(String[] args) {
+        loadTransactions();
+        mainMenu();
+    }
 
-
-        boolean appRunning = true;
 
         //This is the Home screen
         //Create a while loop to efficiently navigate through the menu
-        while(appRunning){
-            System.out.println("Welcome to the main menu!");
-            System.out.println("What would you like to do?: ");
-            System.out.println("----------");
-            System.out.println("D) Add a deposit");
-            System.out.println("P) Make Payment (Debit)");
-            System.out.println("L) Ledger");
-            System.out.println("X) Quit");
-            System.out.println("----------");
+        private static void mainMenu() {
 
-            String mainMenuChoice = theScanner.nextLine().toUpperCase().trim();
+            while (true) {
+                System.out.println("==========");
+                System.out.println("Welcome to the main menu!");
+                System.out.println("What would you like to do?");
+                System.out.println("D) Add a deposit");
+                System.out.println("P) Make Payment (Debit)");
+                System.out.println("L) Ledger");
+                System.out.println("X) Quit");
+                System.out.println("==========");
+                System.out.print("Please select your option: ");
 
-            //Make a switch statement to branch out the different options based on the user's choice
-            switch (mainMenuChoice) {
-                case "D":
-                    addTransaction();
-                    break;
-                case "P":
-                    addTransaction();
-                    break;
-                case "L":
-                    showLedger();
-                    break;
-                case "X":
-                    appRunning = false;
-                    break;
-                default:
-                    System.out.println("Invalid option!");
+                String mainMenuChoice = theScanner.nextLine().toUpperCase().trim();
 
+                //Make a switch statement to branch out the different options based on the user's choice
+                switch (mainMenuChoice) {
+                    case "D":
+                        addTransaction(true);
+                        break;
+                    case "P":
+                        addTransaction(false);
+                        break;
+                    case "L":
+                        showLedger();
+                        break;
+                    case "X":
+                        //Add a goodbye for when the user is done using the program :)
+                        System.out.println("Thank you for using our application!");
+                        System.out.println("Goodbye!");
+                    default:
+                        System.out.println("Invalid option!");
+
+                }
             }
-
         }
 
         //Add a method in order to display deposits and make payments that shows the description, vendor, and amount
@@ -68,6 +76,7 @@ public class Main {
 
             Transaction t = new Transaction(date, time, description, vendor, amount);
             ledger.add(t);
+            saveTransaction(t);
 
             System.out.println("Your transaction has been saved.");
 
@@ -99,7 +108,10 @@ public class Main {
                         showPayments();
                         break;
                     case "R":
+                        showReports();
+                        break;
                     case "H":
+                        return;
                     default:
                         System.out.println("Invalid option!");
                 }
@@ -123,11 +135,22 @@ public class Main {
 
                 switch (choice) {
                     case "1":
+                        reportMonthToDate();
+                        break;
                     case "2":
+                        reportPreviousMonth();
+                        break;
                     case "3":
+                        reportYearToDate();
+                        break;
                     case "4":
+                        reportPreviousYear();
+                        break;
                     case "5":
+                        searchVendor();
+                        break;
                     case "0":
+                        return;
                     default:
                         System.out.println("Invalid option!");
 
@@ -147,7 +170,7 @@ public class Main {
             //For loop to display the entries from newest to oldest
             for(int i = ledger.size() - 1; i >= 0; i--) {
                 Transaction t = ledger.get(i);
-                printTansaction(t);
+                printTransaction(t);
             }
         }
 
@@ -180,7 +203,7 @@ public class Main {
         //of the transaction easily.
         private static void printTransaction(Transaction t) {
             System.out.printf("%s | %s | %-20s | %-15s | %.2fn", t.getDate(), t.getTime(),
-                    t.getDescription, t.getVendor(), t.getAmount());
+                    t.getDescription(), t.getVendor(), t.getAmount());
         }
 
         //These are the methods to display the options from the Reports menu
@@ -267,13 +290,37 @@ public class Main {
             }
         }
 
+        //Used a buffered reader to read out parts of the .csv file
+        private static void loadTransactions() {
+            try (BufferedReader buffreader = new BufferedReader(new FileReader("src/main/resources/transactions.csv"))) {
+                String line;
 
-        //Add a goodbye for when the user is done using the program :)
-        System.out.println("Thank you for using our application!");
-        System.out.println("Goodbye!");
+                while ((line = buffreader.readLine()) != null) {
+                    String[] parts = line.split("\\|");
+
+                    LocalDate date = LocalDate.parse(parts[0]);
+                    LocalTime time = LocalTime.parse(parts[1]);
+                    String description = parts[2];
+                    String vendor = parts[3];
+                    double amount = Double.parseDouble(parts[4]);
+
+                    ledger.add(new Transaction(date, time, description, vendor, amount));
+                }
+            } catch (Exception e) {
+                    System.out.println("An error has occurred");
+            }
+        }
+
+        //Create a method to save a transaction into the .csv file
+        private static void saveTransaction(Transaction t) {
+            try (FileWriter writer = new FileWriter("src/main/resources/transactions.csv", true)) {
+                writer.write(t.toString() + "\n");
+            } catch (Exception e) {
+                System.out.println("Error saving transaction");
+            }
+        }
+
 
 
 
     }
-
-}
