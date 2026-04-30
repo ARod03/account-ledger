@@ -2,11 +2,13 @@ package com.pluralsight;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
 
     public static Scanner theScanner = new Scanner(System.in);
+    public static ArrayList<Transaction> ledger = new ArrayList<>();
 
     public static void main(String[] args) {
 
@@ -63,6 +65,11 @@ public class Main {
 
             LocalDate date = LocalDate.now();
             LocalTime time = LocalTime.now();
+
+            Transaction transaction = new Transaction(date, time, description, vendor, amount);
+            ledger.add(transaction);
+
+            System.out.println("Your transaction has been saved.");
 
         }
 
@@ -138,7 +145,7 @@ public class Main {
             System.out.println("<=== All Transactions ===>");
 
             //For loop to display the entries from newest to oldest
-            for(int i = showLedger.size() - 1; i >= 0; i--) {
+            for(int i = ledger.size() - 1; i >= 0; i--) {
 
             }
         }
@@ -146,7 +153,7 @@ public class Main {
         //Create a method to show only the deposits from the ledger
         private static void showDeposits() {
             System.out.println("<=== Deposits ===>");
-            for (int i = showLedger.size() - 1; i >= 0; i--) {
+            for (int i = ledger.size() - 1; i >= 0; i--) {
 
             }
         }
@@ -154,7 +161,7 @@ public class Main {
         //Create a method to show only the payments from the ledger
         private static void showPayments() {
             System.out.println("<=== Payments ===>");
-            for (int i = showLedger.size() - 1; i >= 0; i--) {
+            for (int i = ledger.size() - 1; i >= 0; i--) {
 
             }
         }
@@ -166,7 +173,7 @@ public class Main {
 
             System.out.println("\n==== Month to Date ====");
 
-            for(int i = showLedger.size() - 1; i >= 0; i--) {
+            for(int i = ledger.size() - 1; i >= 0; i--) {
 
             }
         }
@@ -176,7 +183,7 @@ public class Main {
             LocalDate currentDate = LocalDate.now();
             LocalDate previousDate = now.minusMonths(1);
 
-            for(int i = showLedger.size() - 1; i >= 0; i--) {
+            for(int i = ledger.size() - 1; i >= 0; i--) {
 
             }
         }
@@ -187,7 +194,7 @@ public class Main {
 
             System.out.println("\n==== Year to Date ====");
 
-            for(int i = showLedger.size() - 1; i >= 0; i--) {
+            for(int i = ledger.size() - 1; i >= 0; i--) {
 
             }
         }
@@ -198,7 +205,7 @@ public class Main {
 
             System.out.println("\n==== Previous Year ====");
 
-            for(int i = showLedger.size() - 1; i >= 0; i--) {
+            for(int i = ledger.size() - 1; i >= 0; i--) {
 
             }
         }
@@ -209,7 +216,7 @@ public class Main {
 
         System.out.println("\n==== Search Results ====");
 
-        for(int i = showLedger.size() - 1; i >= 0; i--) {
+        for(int i = ledger.size() - 1; i >= 0; i--) {
 
         }
 
