@@ -69,31 +69,69 @@ public class Main {
         //This is the Ledger menu
         //This is the method to show the ledger screen when the user wants access to the ledger
         private static void showLedger() {
-            System.out.println("\n<=== Ledger ===>");
-            System.out.println("A) All");
-            System.out.println("D) Deposits");
-            System.out.println("P) Payments");
-            System.out.println("R) Reports");
-            System.out.println("H) Home");
-            System.out.print("Please select an option: ");
+            while (true) {
+                System.out.println("\n<=== Ledger ===>");
+                System.out.println("A) All");
+                System.out.println("D) Deposits");
+                System.out.println("P) Payments");
+                System.out.println("R) Reports");
+                System.out.println("H) Home");
+                System.out.print("Please select an option: ");
 
-            String ledgerChoice = theScanner.nextLine().toUpperCase().trim();
+                String choice = theScanner.nextLine().toUpperCase().trim();
 
-            //Switch statements that will branch out the options chosen from the ledger
-            switch (ledgerChoice) {
-                case "A":
-                    showAll();
-                    break;
-                case "D":
-                    showDeposits();
-                    break;
-                case "P":
-                case "R":
-                case "H":
-                default:
-                    System.out.println("Invalid option!");
+                //Switch statements that will branch out the options chosen from the ledger
+                switch (choice) {
+                    case "A":
+                        showAll();
+                        break;
+                    case "D":
+                        showDeposits();
+                        break;
+                    case "P":
+                        showPayments();
+                        break;
+                    case "R":
+                    case "H":
+                    default:
+                        System.out.println("Invalid option!");
+                }
             }
         }
+
+        //This is the Reports Menu
+        //Create a method and while loop to display the reports menu
+        private static void showReports() {
+            while (true) {
+                System.out.println("\n<=== Reports ===>");
+                System.out.println("1) Month to Date");
+                System.out.println("2) Previous Month");
+                System.out.println("3) Year to Date");
+                System.out.println("4) Previous Year");
+                System.out.println("5) Search by Vendor");
+                System.out.println("0) Back");
+                System.out.print("Please select an option: ");
+
+                String choice = theScanner.nextLine().trim();
+
+                switch (choice) {
+                    case "1":
+                    case "2":
+                    case "3":
+                    case "4":
+                    case "5":
+                    case "0":
+                    default:
+                        System.out.println("Invalid option!");
+
+                }
+
+
+            }
+        }
+
+
+
 
         //Create a method to display everything from the ledger
         private static void showAll() {
