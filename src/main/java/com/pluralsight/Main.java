@@ -66,8 +66,8 @@ public class Main {
             LocalDate date = LocalDate.now();
             LocalTime time = LocalTime.now();
 
-            Transaction transaction = new Transaction(date, time, description, vendor, amount);
-            ledger.add(transaction);
+            Transaction t = new Transaction(date, time, description, vendor, amount);
+            ledger.add(t);
 
             System.out.println("Your transaction has been saved.");
 
@@ -146,8 +146,8 @@ public class Main {
 
             //For loop to display the entries from newest to oldest
             for(int i = ledger.size() - 1; i >= 0; i--) {
-                Transaction transaction = ledger.get(i);
-                printTansaction(transaction);
+                Transaction t = ledger.get(i);
+                printTansaction(t);
             }
         }
 
@@ -155,10 +155,10 @@ public class Main {
         private static void showDeposits() {
             System.out.println("<=== Deposits ===>");
             for (int i = ledger.size() - 1; i >= 0; i--) {
-                Transaction transaction = ledger.get(i);
+                Transaction t = ledger.get(i);
 
-                if(transaction.getAmount() > 0) {
-                    printTransaction(transaction);
+                if(t.getAmount() > 0) {
+                    printTransaction(t);
                 }
             }
         }
@@ -167,18 +167,20 @@ public class Main {
         private static void showPayments() {
             System.out.println("<=== Payments ===>");
             for (int i = ledger.size() - 1; i >= 0; i--) {
-                Transaction transaction = ledger.get(i);
+                Transaction t = ledger.get(i);
 
-                if(transaction.getAmount() < 0) {
-                    printTransaction(transaction);
+                if(t.getAmount() < 0) {
+                    printTransaction(t);
                 }
 
             }
         }
 
-        private static void printTransaction(Transaction transaction) {
-            System.out.printf("%s | %s | %-20s | %-15s | %.2fn", transaction.getDate(), transaction.getTime(),
-                    transaction.getDescription, transaction.getVendor(), transaction.getAmount());
+        //Transactions would be displayed using this method. It is also formatted to be able to view the parts
+        //of the transaction easily.
+        private static void printTransaction(Transaction t) {
+            System.out.printf("%s | %s | %-20s | %-15s | %.2fn", t.getDate(), t.getTime(),
+                    t.getDescription, t.getVendor(), t.getAmount());
         }
 
         //These are the methods to display the options from the Reports menu
