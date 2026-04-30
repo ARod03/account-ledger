@@ -132,7 +132,7 @@ public class Main {
 
 
 
-
+        //These are the methods to display the options from the Ledger menu
         //Create a method to display everything from the ledger
         private static void showAll() {
             System.out.println("<=== All Transactions ===>");
@@ -155,6 +155,50 @@ public class Main {
         private static void showPayments() {
             System.out.println("<=== Payments ===>");
             for (int i = showLedger.size() - 1; i >= 0; i--) {
+
+            }
+        }
+
+        //These are the methods to display the options from the Reports menu
+        //Create a method to show month to date of the reports
+        private static void reportMonthToDate() {
+            LocalDate currentDate = LocalDate.now();
+
+            System.out.println("\n==== Month to Date ====");
+
+            for(int i = showLedger.size() - 1; i >= 0; i--) {
+
+            }
+        }
+
+        //Create a method to show the previous month
+        private static void reportPreviousMonth() {
+            LocalDate currentDate = LocalDate.now();
+            LocalDate previousDate = now.minusMonths(1);
+
+            for(int i = showLedger.size() - 1; i >= 0; i--) {
+
+            }
+        }
+
+        //Create a method to show the year to date
+        private static void reportYearToDate() {
+            int currentYear = LocalDate.now().getYear();
+
+            System.out.println("\n==== Year to Date ====");
+
+            for(int i = showLedger.size() - 1; i >= 0; i--) {
+
+            }
+        }
+
+        //Create a method to show the previous year
+        private static void reportPreviousYear() {
+            int previousYear = LocalDate.now().getYear() - 1;
+
+            System.out.println("\n==== Previous Year ====");
+
+            for(int i = showLedger.size() - 1; i >= 0; i--) {
 
             }
         }
