@@ -61,7 +61,29 @@ public class Main {
             LocalDate date = LocalDate.now();
             LocalTime time = LocalTime.now();
 
+        }
 
+        //This is the method to show the ledger screen when the user wants access to the ledger
+        private static void showLedger() {
+            System.out.println("\n<=== Ledger ===>");
+            System.out.println("A) All");
+            System.out.println("D) Deposits");
+            System.out.println("P) Payments");
+            System.out.println("R) Reports");
+            System.out.println("H) Home");
+            System.out.print("Please select an option: ");
+
+            String ledgerChoice = theScanner.nextLine().toUpperCase().trim();
+
+            switch (ledgerChoice) {
+                case "A":
+                case "D":
+                case "P":
+                case "R":
+                case "H":
+                default:
+                    System.out.println("Invalid option!");
+            }
         }
 
         //Add a goodbye for when the user is done using the program
