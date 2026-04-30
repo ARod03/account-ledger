@@ -146,7 +146,8 @@ public class Main {
 
             //For loop to display the entries from newest to oldest
             for(int i = ledger.size() - 1; i >= 0; i--) {
-
+                Transaction transaction = ledger.get(i);
+                printTansaction(transaction);
             }
         }
 
@@ -154,7 +155,11 @@ public class Main {
         private static void showDeposits() {
             System.out.println("<=== Deposits ===>");
             for (int i = ledger.size() - 1; i >= 0; i--) {
+                Transaction transaction = ledger.get(i);
 
+                if(transaction.getAmount() > 0) {
+                    printTransaction(transaction);
+                }
             }
         }
 
@@ -162,8 +167,18 @@ public class Main {
         private static void showPayments() {
             System.out.println("<=== Payments ===>");
             for (int i = ledger.size() - 1; i >= 0; i--) {
+                Transaction transaction = ledger.get(i);
+
+                if(transaction.getAmount() < 0) {
+                    printTransaction(transaction);
+                }
 
             }
+        }
+
+        private static void printTransaction(Transaction transaction) {
+            System.out.printf("%s | %s | %-20s | %-15s | %.2fn", transaction.getDate(), transaction.getTime(),
+                    transaction.getDescription, transaction.getVendor(), transaction.getAmount());
         }
 
         //These are the methods to display the options from the Reports menu
