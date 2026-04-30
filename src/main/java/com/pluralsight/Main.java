@@ -6,11 +6,14 @@ import java.util.Scanner;
 
 public class Main {
 
+    public static Scanner theScanner = new Scanner(System.in);
+
     public static void main(String[] args) {
 
-        Scanner theScanner = new Scanner(System.in);
+
         boolean appRunning = true;
 
+        //This is the Home screen
         //Create a while loop to efficiently navigate through the menu
         while(appRunning){
             System.out.println("Welcome to the main menu!");
@@ -45,8 +48,8 @@ public class Main {
 
         }
 
-        //Add a method in order to display deposits and making payments
-        private static void addTransactions(boolean isDeposit) {
+        //Add a method in order to display deposits and make payments that shows the description, vendor, and amount
+        private static void addTransaction(boolean isDeposit) {
             System.out.println("Description: ");
             String description = theScanner.nextLine();
 
@@ -63,6 +66,7 @@ public class Main {
 
         }
 
+        //This is the Ledger menu
         //This is the method to show the ledger screen when the user wants access to the ledger
         private static void showLedger() {
             System.out.println("\n<=== Ledger ===>");
@@ -75,9 +79,14 @@ public class Main {
 
             String ledgerChoice = theScanner.nextLine().toUpperCase().trim();
 
+            //Switch statements that will branch out the options chosen from the ledger
             switch (ledgerChoice) {
                 case "A":
+                    showAll();
+                    break;
                 case "D":
+                    showDeposits();
+                    break;
                 case "P":
                 case "R":
                 case "H":
@@ -86,7 +95,35 @@ public class Main {
             }
         }
 
-        //Add a goodbye for when the user is done using the program
+        //Create a method to display everything from the ledger
+        private static void showAll() {
+            System.out.println("<=== All Transactions ===>");
+
+            //For loop to display the entries from newest to oldest
+            for(int i = showLedger.size() - 1; i >= 0; i--) {
+
+            }
+        }
+
+        //Create a method to show only the deposits from the ledger
+        private static void showDeposits() {
+            System.out.println("<=== Deposits ===>");
+            for (int i = showLedger.size() - 1; i >= 0; i--) {
+
+            }
+        }
+
+        //Create a method to show only the payments from the ledger
+        private static void showPayments() {
+            System.out.println("<=== Payments ===>");
+            for (int i = showLedger.size() - 1; i >= 0; i--) {
+
+            }
+        }
+
+
+
+        //Add a goodbye for when the user is done using the program :)
         System.out.println("Thank you for using our application!");
         System.out.println("Goodbye!");
 
